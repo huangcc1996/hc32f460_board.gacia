@@ -16,16 +16,6 @@
 #include "fal.h"
 #include "spi_flash_sfud.h"
 
-#ifdef LOG_TAG
-#undef LOG_TAG
-#endif
-#ifdef LOG_LVL
-#undef LOG_LVL
-#endif
-
-#define LOG_TAG     "main"     // 该模块对应的标签。不定义时，默认：NO_TAG
-#define LOG_LVL     LOG_LVL_DBG   // 该模块对应的日志输出级别。不定义时，默认：调试级别
-#include <ulog.h>                 // 必须在 LOG_TAG 与 LOG_LVL 下面
 /* defined the LED_GREEN pin: PD4 */
 #define LED_GREEN_PIN GET_PIN(D, 10)
 

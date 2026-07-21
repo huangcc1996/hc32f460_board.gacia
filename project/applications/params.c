@@ -69,6 +69,9 @@ int fdb_kvdc_params(void)
 static void perf_test(void){
     static int baud = 1;
     char sn[32] = {0};
+    int get_baud1,get_baud2;
+    char get_sn[32] = {0};
+    size_t size = 0;
     LOG_D("perf_test[%d-%d]",baud,baud+10);
     for(int i=0;i<10;i++){
         baud++;
@@ -76,6 +79,15 @@ static void perf_test(void){
         flash_param_set(&mgr, "rs485_2_baud", &baud);
         rt_snprintf(sn,32,"TEST-%04d",baud);
         flash_param_set(&mgr, "SN", sn);
+        size = 4;
+        flash_param_get(&mgr,"rs485_1_baud",&get_baud1,&size);
+        size = 4;
+        flash_param_get(&mgr,"rs485_2_baud",&get_baud2,&size);
+        size = 32;
+        flash_param_get(&mgr,"SN",&get_sn,&size);
+        if(get_baud1!=g_baud_1 || get_baud2!=g_baud_2 || rt_memcmp(get_sn,g_sn,rt_strlen(g_sn)!=0)){
+            LOG_D("perf_test error");
+        }
     }
     flash_param_print(&mgr);
 }

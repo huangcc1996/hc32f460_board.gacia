@@ -108,6 +108,7 @@
 #define RT_SFUD_USING_SFDP
 #define RT_SFUD_USING_FLASH_INFO_TABLE
 #define RT_SFUD_SPI_MAX_HZ 50000000
+#define RT_USING_WDT
 #define RT_USING_PIN
 
 /* Using USB */
@@ -256,6 +257,19 @@
 #define FDB_DEBUG_ENABLE
 #define PKG_USING_FLASHDB_V20100
 #define PKG_FLASHDB_VER_NUM 0x20100
+#define PKG_USING_SYSWATCH
+#define SYSWATCH_USING_TEST
+#define SYSWATCH_EXCEPT_RESOLVE_MODE_0
+#define SYSWATCH_EXCEPT_RESOLVE_MODE 0
+#define SYSWATCH_EXCEPT_TIMEOUT 60
+#define SYSWATCH_EXCEPT_CONFIRM_TMO 15
+#define SYSWATCH_EXCEPT_RESUME_DLY 15
+#define SYSWATCH_THREAD_PRIO 0
+#define SYSWATCH_THREAD_STK_SIZE 1024
+#define SYSWATCH_THREAD_NAME "syswatch"
+#define SYSWATCH_WDT_NAME "wdt"
+#define SYSWATCH_WDT_TIMEOUT 5
+#define PKG_USING_SYSWATCH_LATEST_VERSION
 /* end of system packages */
 
 /* peripheral libraries and drivers */
@@ -417,6 +431,8 @@
 #define BSP_USING_ON_CHIP_FLASH
 #define BSP_USING_SPI
 #define BSP_USING_SPI3
+#define BSP_USING_WDT_TMR
+#define BSP_USING_WDT
 /* end of On-chip Peripheral Drivers */
 
 /* Board extended module Drivers */
