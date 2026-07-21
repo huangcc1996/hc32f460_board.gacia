@@ -20,7 +20,7 @@ int main(void)
 {
     /* set LED_GREEN_PIN pin mode to output */
     rt_pin_mode(LED_GREEN_PIN, PIN_MODE_OUTPUT);
-
+    rt_kprintf("hello world\r\n");
     while (1)
     {
         rt_pin_write(LED_GREEN_PIN, PIN_HIGH);

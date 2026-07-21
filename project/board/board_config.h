@@ -23,24 +23,36 @@
 #define XTAL_OUT_PIN                    (GPIO_PIN_00)
 
 /************************ USART port **********************/
+#if defined(BSP_USING_UART1)
+    #define USART1_RX_PORT                  (GPIO_PORT_A)
+    #define USART1_RX_PIN                   (GPIO_PIN_10)
+
+    #define USART1_TX_PORT                  (GPIO_PORT_A)
+    #define USART1_TX_PIN                   (GPIO_PIN_09)
+#endif
+
 #if defined(BSP_USING_UART2)
     #define USART2_RX_PORT                  (GPIO_PORT_A)
     #define USART2_RX_PIN                   (GPIO_PIN_03)
-    #define USART2_RX_FUNC                  (GPIO_FUNC_37)
 
     #define USART2_TX_PORT                  (GPIO_PORT_A)
     #define USART2_TX_PIN                   (GPIO_PIN_02)
-    #define USART2_TX_FUNC                  (GPIO_FUNC_36)
+#endif
+
+#if defined(BSP_USING_UART3)
+    #define USART3_RX_PORT                  (GPIO_PORT_B)
+    #define USART3_RX_PIN                   (GPIO_PIN_08)
+
+    #define USART3_TX_PORT                  (GPIO_PORT_B)
+    #define USART3_TX_PIN                   (GPIO_PIN_09)
 #endif
 
 #if defined(BSP_USING_UART4)
-    #define USART4_RX_PORT                  (GPIO_PORT_B)
-    #define USART4_RX_PIN                   (GPIO_PIN_09)
-    #define USART4_RX_FUNC                  (GPIO_FUNC_37)
+    #define USART4_RX_PORT                  (GPIO_PORT_H)
+    #define USART4_RX_PIN                   (GPIO_PIN_02)
 
-    #define USART4_TX_PORT                  (GPIO_PORT_E)
-    #define USART4_TX_PIN                   (GPIO_PIN_06)
-    #define USART4_TX_FUNC                  (GPIO_FUNC_36)
+    #define USART4_TX_PORT                  (GPIO_PORT_C)
+    #define USART4_TX_PIN                   (GPIO_PIN_13)
 #endif
 
 /************************ I2C port **********************/
