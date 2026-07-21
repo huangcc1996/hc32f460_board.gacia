@@ -87,7 +87,7 @@ void rt_hw_board_init()
     PeripheralClock_Config();
     /* Configure the SysTick */
     SysTick_Configuration();
-
+    GPIO_SetDebugPort(GPIO_PIN_SWO | GPIO_PIN_TDI | GPIO_PIN_TRST, DISABLE);
     /* Heap initialization */
 #if defined(RT_USING_HEAP)
     rt_system_heap_init((void *)HEAP_BEGIN, (void *)HEAP_END);

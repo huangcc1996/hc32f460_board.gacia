@@ -93,26 +93,26 @@
 
 /************************* SPI port ***********************/
 #if defined(BSP_USING_SPI3)
-    #define SPI3_CS_PORT                (GPIO_PORT_C)
-    #define SPI3_CS_PIN                 (GPIO_PIN_07)
+    #define SPI3_CS_PORT                (GPIO_PORT_E)
+    #define SPI3_CS_PIN                 (GPIO_PIN_03)
 
-    #define SPI3_SCK_PORT               (GPIO_PORT_C)
-    #define SPI3_SCK_PIN                (GPIO_PIN_06)
+    #define SPI3_SCK_PORT               (GPIO_PORT_B)
+    #define SPI3_SCK_PIN                (GPIO_PIN_03)
     #define SPI3_SCK_FUNC               (GPIO_FUNC_43)
 
-    #define SPI3_MOSI_PORT              (GPIO_PORT_D)
-    #define SPI3_MOSI_PIN               (GPIO_PIN_08)
+    #define SPI3_MOSI_PORT              (GPIO_PORT_B)
+    #define SPI3_MOSI_PIN               (GPIO_PIN_05)
     #define SPI3_MOSI_FUNC              (GPIO_FUNC_40)
 
-    #define SPI3_MISO_PORT              (GPIO_PORT_D)
-    #define SPI3_MISO_PIN               (GPIO_PIN_09)
+    #define SPI3_MISO_PORT              (GPIO_PORT_B)
+    #define SPI3_MISO_PIN               (GPIO_PIN_04)
     #define SPI3_MISO_FUNC              (GPIO_FUNC_41)
 
-    #define SPI3_WP_PORT                (GPIO_PORT_D)
-    #define SPI3_WP_PIN                 (GPIO_PIN_10)
+//    #define SPI3_WP_PORT                (GPIO_PORT_D)
+//    #define SPI3_WP_PIN                 (GPIO_PIN_10)
 
-    #define SPI3_HOLD_PORT              (GPIO_PORT_D)
-    #define SPI3_HOLD_PIN               (GPIO_PIN_11)
+//    #define SPI3_HOLD_PORT              (GPIO_PORT_D)
+//    #define SPI3_HOLD_PIN               (GPIO_PIN_11)
 #endif
 
 /************************ SDIOC port **********************/

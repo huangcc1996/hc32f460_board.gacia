@@ -25,9 +25,10 @@
 
 #define SPI_BUS_NAME                    "spi3"
 #define SPI_FLASH_DEVICE_NAME           "spi30"
-#define SPI_FLASH_CHIP                  "w25q64"
-#define SPI_FLASH_SS_PORT               GPIO_PORT_C
-#define SPI_FLASH_SS_PIN                GPIO_PIN_07
+//#define SPI_FLASH_CHIP                  "w25q64"
+#define SPI_FLASH_CHIP                  "norflash0"
+#define SPI_FLASH_SS_PORT               GPIO_PORT_E
+#define SPI_FLASH_SS_PIN                GPIO_PIN_03
 /* Partition Name */
 #define FS_PARTITION_NAME              "filesystem"
 
@@ -67,55 +68,55 @@ static int rt_hw_spi_flash_with_sfud_init(void)
 
     return RT_EOK;
 }
-INIT_COMPONENT_EXPORT(rt_hw_spi_flash_with_sfud_init);
+//INIT_COMPONENT_EXPORT(rt_hw_spi_flash_with_sfud_init);
 
 static int rt_hw_fs_init(void)
 {
-    struct rt_device *mtd_dev = RT_NULL;
+//    struct rt_device *mtd_dev = RT_NULL;
 
     /* 初始化 fal */
     fal_init();
     /* 生成 mtd 设备 */
-    mtd_dev = fal_mtd_nor_device_create(FS_PARTITION_NAME);
-    if (!mtd_dev)
-    {
-        LOG_E("Can't create a mtd device on '%s' partition.", FS_PARTITION_NAME);
-        return -RT_ERROR;
-    }
-    else
-    {
-        /* 挂载 littlefs */
-        if (RT_EOK == dfs_mount(FS_PARTITION_NAME, "/", "lfs", 0, 0))
-        {
-            LOG_I("Filesystem initialized!");
-            return RT_EOK;
-        }
-        else
-        {
-            /* 格式化文件系统 */
-            if (RT_EOK == dfs_mkfs("lfs", FS_PARTITION_NAME))
-            {
-                /* 挂载 littlefs */
-                if (RT_EOK == dfs_mount(FS_PARTITION_NAME, "/", "lfs", 0, 0))
-                {
-                    LOG_I("Filesystem initialized!");
-                    return RT_EOK;
-                }
-                else
-                {
-                    LOG_E("Failed to initialize filesystem!");
-                    return -RT_ERROR;
-                }
-            }
-            else
-            {
-                LOG_E("Failed to Format fs!");
-                return -RT_ERROR;
-            }
-        }
-    }
+//    mtd_dev = fal_mtd_nor_device_create(FS_PARTITION_NAME);
+//    if (!mtd_dev)
+//    {
+//        LOG_E("Can't create a mtd device on '%s' partition.", FS_PARTITION_NAME);
+//        return -RT_ERROR;
+//    }
+//    else
+//    {
+//        /* 挂载 littlefs */
+//        if (RT_EOK == dfs_mount(FS_PARTITION_NAME, "/", "lfs", 0, 0))
+//        {
+//            LOG_I("Filesystem initialized!");
+//            return RT_EOK;
+//        }
+//        else
+//        {
+//            /* 格式化文件系统 */
+//            if (RT_EOK == dfs_mkfs("lfs", FS_PARTITION_NAME))
+//            {
+//                /* 挂载 littlefs */
+//                if (RT_EOK == dfs_mount(FS_PARTITION_NAME, "/", "lfs", 0, 0))
+//                {
+//                    LOG_I("Filesystem initialized!");
+//                    return RT_EOK;
+//                }
+//                else
+//                {
+//                    LOG_E("Failed to initialize filesystem!");
+//                    return -RT_ERROR;
+//                }
+//            }
+//            else
+//            {
+//                LOG_E("Failed to Format fs!");
+//                return -RT_ERROR;
+//            }
+//        }
+//    }
 }
-INIT_APP_EXPORT(rt_hw_fs_init);
+//INIT_APP_EXPORT(rt_hw_fs_init);
 
 #endif /* RT_USING_SFUD */
 

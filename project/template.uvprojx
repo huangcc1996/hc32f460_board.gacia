@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>HC32F460PETB</Device>
           <Vendor>HDSC</Vendor>
-          <PackID>HDSC.HC32F460.1.0.9</PackID>
+          <PackID>HDSC.HC32F460.1.0.12</PackID>
           <PackURL>https://raw.githubusercontent.com/hdscmcu/pack/master/</PackURL>
           <Cpu>IROM1(0x00000000,0x80000) IROM2(0x03000C00,0x3FC) IRAM1(0x1FFF8000,0x2F000)  IRAM2(0x200F0000,0x1000) CPUTYPE("Cortex-M4") FPU2 CLOCK(8000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -179,13 +179,12 @@
             <mOS>0</mOS>
             <uocRom>0</uocRom>
             <uocRam>0</uocRam>
-            <hadIROM>1</hadIROM>
-            <hadIRAM>1</hadIRAM>
+            <hadIROM>0</hadIROM>
+            <hadIRAM>0</hadIRAM>
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>1</RvdsVP>
             <RvdsMve>0</RvdsMve>
-            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -245,8 +244,8 @@
               </Ocm6>
               <IRAM>
                 <Type>0</Type>
-                <StartAddress>0x1FFF8000</StartAddress>
-                <Size>0x2F000</Size>
+                <StartAddress>0x1fff8000</StartAddress>
+                <Size>0x2f000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
@@ -280,8 +279,8 @@
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
-                <StartAddress>0x03000C00</StartAddress>
-                <Size>0x3C0</Size>
+                <StartAddress>0x3000c00</StartAddress>
+                <Size>0x3c0</Size>
               </OCR_RVCT5>
               <OCR_RVCT6>
                 <Type>0</Type>
@@ -300,12 +299,12 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x1FFF8000</StartAddress>
-                <Size>0x2F000</Size>
+                <StartAddress>0x1fff8000</StartAddress>
+                <Size>0x2f000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x200F0000</StartAddress>
+                <StartAddress>0x200f0000</StartAddress>
                 <Size>0x1000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
@@ -352,7 +351,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <ClangAsOpt>4</ClangAsOpt>
+            <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>

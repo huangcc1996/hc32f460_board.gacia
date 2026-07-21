@@ -152,17 +152,17 @@ rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
     {
 #if defined(BSP_USING_SPI3)
     case (rt_uint32_t)CM_SPI3:
-        GPIO_StructInit(&stcGpioInit);
-        stcGpioInit.u16PinState = PIN_STAT_SET;
-        stcGpioInit.u16PinDir   = PIN_DIR_OUT;
-        GPIO_Init(SPI3_WP_PORT, SPI3_WP_PIN, &stcGpioInit);
-        GPIO_Init(SPI3_HOLD_PORT, SPI3_HOLD_PIN, &stcGpioInit);
+//        GPIO_StructInit(&stcGpioInit);
+//        stcGpioInit.u16PinState = PIN_STAT_SET;
+//        stcGpioInit.u16PinDir   = PIN_DIR_OUT;
+//        GPIO_Init(SPI3_WP_PORT, SPI3_WP_PIN, &stcGpioInit);
+//        GPIO_Init(SPI3_HOLD_PORT, SPI3_HOLD_PIN, &stcGpioInit);
 
-        (void)GPIO_StructInit(&stcGpioInit);
-        stcGpioInit.u16PinDrv = PIN_HIGH_DRV;
-        (void)GPIO_Init(SPI3_SCK_PORT,  SPI3_SCK_PIN,  &stcGpioInit);
-        (void)GPIO_Init(SPI3_MOSI_PORT, SPI3_MOSI_PIN, &stcGpioInit);
-        (void)GPIO_Init(SPI3_MISO_PORT, SPI3_MISO_PIN, &stcGpioInit);
+//        (void)GPIO_StructInit(&stcGpioInit);
+//        stcGpioInit.u16PinDrv = PIN_HIGH_DRV;
+//        (void)GPIO_Init(SPI3_SCK_PORT,  SPI3_SCK_PIN,  &stcGpioInit);
+//        (void)GPIO_Init(SPI3_MOSI_PORT, SPI3_MOSI_PIN, &stcGpioInit);
+//        (void)GPIO_Init(SPI3_MISO_PORT, SPI3_MISO_PIN, &stcGpioInit);
         GPIO_SetFunc(SPI3_SCK_PORT,  SPI3_SCK_PIN,  SPI3_SCK_FUNC);
         GPIO_SetFunc(SPI3_MOSI_PORT, SPI3_MOSI_PIN, SPI3_MOSI_FUNC);
         GPIO_SetFunc(SPI3_MISO_PORT, SPI3_MISO_PIN, SPI3_MISO_FUNC);

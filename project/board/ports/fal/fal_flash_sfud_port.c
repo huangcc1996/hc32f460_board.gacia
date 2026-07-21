@@ -29,7 +29,7 @@ struct fal_flash_dev ext_nor_flash0 =
 {
     .name       = FAL_USING_NOR_FLASH_DEV_NAME,
     .addr       = 0,
-    .len        = 8 * 1024 * 1024,
+    .len        = 4 * 1024 * 1024,
     .blk_size   = 4096,
     .ops        = {init, read, write, erase},
     .write_gran = 1
