@@ -155,11 +155,6 @@
 #define ULOG_OUTPUT_LVL 7
 #define ULOG_ASSERT_ENABLE
 #define ULOG_LINE_BUF_SIZE 128
-#define ULOG_USING_ASYNC_OUTPUT
-#define ULOG_ASYNC_OUTPUT_BUF_SIZE 2048
-#define ULOG_ASYNC_OUTPUT_BY_THREAD
-#define ULOG_ASYNC_OUTPUT_THREAD_STACK 1024
-#define ULOG_ASYNC_OUTPUT_THREAD_PRIORITY 30
 
 /* log format */
 
@@ -252,6 +247,15 @@
 /* Micrium: Micrium software products porting for RT-Thread */
 
 /* end of Micrium: Micrium software products porting for RT-Thread */
+#define PKG_USING_FLASHDB
+#define FDB_USING_KVDB
+#define FDB_USING_FAL_MODE
+#define FDB_WRITE_GRAN_1BIT
+#define FDB_WRITE_GRAN 1
+#define FDB_NOT_USING_FILE_MODE
+#define FDB_DEBUG_ENABLE
+#define PKG_USING_FLASHDB_V20100
+#define PKG_FLASHDB_VER_NUM 0x20100
 /* end of system packages */
 
 /* peripheral libraries and drivers */

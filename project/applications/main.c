@@ -29,7 +29,7 @@
 /* defined the LED_GREEN pin: PD4 */
 #define LED_GREEN_PIN GET_PIN(D, 10)
 
-
+extern int fdb_kvdc_params(void);
 int main(void)
 {
     /* set LED_GREEN_PIN pin mode to output */
@@ -38,6 +38,7 @@ int main(void)
     rt_hw_spi_device_attach("spi3", "spi30", SPI3_CS_PORT, SPI3_CS_PIN);
     if (RT_NULL != rt_sfud_flash_probe("norflash0", "spi30")){
         fal_init();
+        fdb_kvdc_params();
     }
 
     while (1)
