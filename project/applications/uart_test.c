@@ -303,4 +303,4 @@ static int uart_test_auto_init(void)
 {
     return uart_test_init(115200);
 }
-INIT_APP_EXPORT(uart_test_auto_init);
+//INIT_APP_EXPORT(uart_test_auto_init);

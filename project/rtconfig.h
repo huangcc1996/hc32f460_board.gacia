@@ -143,6 +143,29 @@
 
 /* Network */
 
+#define RT_USING_SAL
+#define SAL_INTERNET_CHECK
+
+/* Docking with protocol stacks */
+
+#define SAL_USING_AT
+/* end of Docking with protocol stacks */
+#define SAL_USING_POSIX
+#define RT_USING_NETDEV
+#define NETDEV_USING_IFCONFIG
+#define NETDEV_USING_PING
+#define NETDEV_USING_NETSTAT
+#define NETDEV_USING_AUTO_DEFAULT
+#define NETDEV_IPV4 1
+#define NETDEV_IPV6 0
+#define RT_USING_AT
+#define AT_DEBUG
+#define AT_USING_CLIENT
+#define AT_CLIENT_NUM_MAX 1
+#define AT_USING_SOCKET
+#define AT_USING_CLI
+#define AT_PRINT_RAW_CMD
+#define AT_SW_VERSION_NUM 0x10301
 /* end of Network */
 
 /* Memory protection */
@@ -195,6 +218,17 @@
 
 /* end of CYW43439 WiFi */
 /* end of Wi-Fi */
+#define PKG_USING_AT_DEVICE
+#define AT_DEVICE_USING_ML307
+#define AT_DEVICE_ML307_INIT_ASYN
+#define AT_DEVICE_ML307_SOCKET
+#define AT_DEVICE_ML307_SAMPLE
+#define ML307_SAMPLE_POWER_PIN -1
+#define ML307_SAMPLE_STATUS_PIN -1
+#define ML307_SAMPLE_CLIENT_NAME "uart4"
+#define ML307_SAMPLE_RECV_BUFF_LEN 2048
+#define PKG_USING_AT_DEVICE_LATEST_VERSION
+#define PKG_AT_DEVICE_VER_NUM 0x99999
 
 /* IoT Cloud */
 
