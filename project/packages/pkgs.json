@@ -1,0 +1,17 @@
+[
+ {
+  "name": "AT_DEVICE",
+  "path": "/packages/iot/at_device",
+  "ver": "latest"
+ },
+ {
+  "name": "FLASHDB",
+  "path": "/packages/system/FlashDB",
+  "ver": "v2.1.0"
+ },
+ {
+  "name": "SYSWATCH",
+  "path": "/packages/system/syswatch",
+  "ver": "latest"
+ }
+]
