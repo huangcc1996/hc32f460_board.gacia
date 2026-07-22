@@ -1,0 +1,19 @@
+from building import *
+
+# LwRB - Lightweight ring buffer
+# https://github.com/MaJerle/lwrb
+
+cwd = GetCurrentDir()
+
+src = [
+    'src/lwrb/lwrb.c',
+]
+
+CPPPATH = [
+    cwd + '/src/include',
+    cwd + '/src/include/lwrb',
+]
+
+group = DefineGroup('lwrb', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')

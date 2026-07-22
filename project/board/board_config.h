@@ -40,11 +40,14 @@
 #endif
 
 #if defined(BSP_USING_UART3)
-    #define USART3_RX_PORT                  (GPIO_PORT_B)
-    #define USART3_RX_PIN                   (GPIO_PIN_08)
+    #define USART3_EN_PORT                  (GPIO_PORT_A)
+    #define USART3_EN_PIN                   (GPIO_PIN_00)
+    
+    #define USART3_RX_PORT                  (GPIO_PORT_D)
+    #define USART3_RX_PIN                   (GPIO_PIN_09)
 
-    #define USART3_TX_PORT                  (GPIO_PORT_B)
-    #define USART3_TX_PIN                   (GPIO_PIN_09)
+    #define USART3_TX_PORT                  (GPIO_PORT_D)
+    #define USART3_TX_PIN                   (GPIO_PIN_08)
 #endif
 
 #if defined(BSP_USING_UART4)
