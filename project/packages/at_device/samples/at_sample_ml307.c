@@ -54,4 +54,4 @@ static int ml307_device_register(void)
                               AT_DEVICE_CLASS_ML307,
                               (void *) ml307);
 }
-INIT_APP_EXPORT(ml307_device_register);
+//INIT_APP_EXPORT(ml307_device_register);
