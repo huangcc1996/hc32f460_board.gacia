@@ -27,14 +27,16 @@
 #error "Please configure flash write granularity (in fdb_cfg.h)"
 #endif
 
-#if FDB_WRITE_GRAN != 1 && FDB_WRITE_GRAN != 8 && FDB_WRITE_GRAN != 32 && FDB_WRITE_GRAN != 64 && FDB_WRITE_GRAN != 128
-#error "the write gran can be only setting as 1, 8, 32, 64 and 128"
+#if FDB_WRITE_GRAN != 1 && FDB_WRITE_GRAN != 8 && FDB_WRITE_GRAN != 32 && FDB_WRITE_GRAN != 64 && FDB_WRITE_GRAN != 128 && FDB_WRITE_GRAN != 256
+#error "the write gran can be only setting as 1, 8, 32, 64, 128 and 256"
 #endif
 
 /* magic word(`F`, `D`, `B`, `1`) */
 #define SECTOR_MAGIC_WORD                        0x30424446
 /* magic word(`K`, `V`, `0`, `0`) */
 #define KV_MAGIC_WORD                            0x3030564B
+/* GC minimum number of empty sectors. GC will using at least 1 empty sector. */
+#define GC_MIN_EMPTY_SEC_NUM                     1
 
 /* the sector remain threshold before full status */
 #ifndef FDB_SEC_REMAIN_THRESHOLD
@@ -107,6 +109,8 @@ struct sector_hdr_data {
     uint32_t reserved;
 #if (FDB_WRITE_GRAN == 64) || (FDB_WRITE_GRAN == 128)
     uint8_t padding[4];                          /**< align padding for 64bit and 128bit write granularity */
+#elif (FDB_WRITE_GRAN == 256)
+    uint8_t padding[20];                         /**< align padding for 256bit write granularity */
 #endif
 };
 typedef struct sector_hdr_data *sector_hdr_data_t;
@@ -120,9 +124,10 @@ struct kv_hdr_data {
     uint32_t value_len;                          /**< value length */
 #if (FDB_WRITE_GRAN == 64)
     uint8_t padding[4];                          /**< align padding for 64bit write granularity */
-#endif
-#if (FDB_WRITE_GRAN == 128)
-    uint8_t padding[12];                         /**< align padding for 128bit write granularity */
+#elif (FDB_WRITE_GRAN == 128)
+    uint8_t padding[12];                          /**< align padding for 128bit write granularity */
+#elif (FDB_WRITE_GRAN == 256)
+    uint8_t padding[15];                          /**< align padding for 256bit write granularity */
 #endif
 };
 typedef struct kv_hdr_data *kv_hdr_data_t;
@@ -135,9 +140,8 @@ struct alloc_kv_cb_args {
 
 struct gc_cb_args {
     fdb_kvdb_t db;
-    size_t cur_free_size;
     size_t setting_free_size;
-    uint32_t traversed_len;
+    size_t last_gc_sec_addr;
 };
 
 static void gc_collect(fdb_kvdb_t db);
@@ -433,7 +437,7 @@ static fdb_err_t read_sector_info(fdb_kvdb_t db, uint32_t addr, kv_sec_info_t se
     sector->addr = addr;
     sector->magic = sec_hdr.magic;
     /* check magic word and combined value */
-    if (sector->magic != SECTOR_MAGIC_WORD || 
+    if (sector->magic != SECTOR_MAGIC_WORD ||
         (sec_hdr.combined != SECTOR_NOT_COMBINED && sec_hdr.combined != SECTOR_COMBINED)) {
         sector->check_ok = false;
         sector->combined = SECTOR_NOT_COMBINED;
@@ -1071,7 +1075,7 @@ __retry:
 
     if ((empty_kv = alloc_kv(db, sector, kv_size)) == FAILED_ADDR) {
         if (db->gc_request && !already_gc) {
-            FDB_INFO("Warning: Alloc an KV (size %" PRIu32 ") failed when new KV. Now will GC then retry.\n", (uint32_t)kv_size);
+            FDB_DEBUG("Alloc an KV (size %" PRIu32 ") failed when new KV. Now will GC then retry.\n", (uint32_t)kv_size);
             gc_collect_by_free_size(db, kv_size);
             already_gc = true;
             goto __retry;
@@ -1093,10 +1097,12 @@ static uint32_t new_kv_ex(fdb_kvdb_t db, kv_sec_info_t sector, size_t key_len, s
 
 static bool gc_check_cb(kv_sec_info_t sector, void *arg1, void *arg2)
 {
-    size_t *empty_sec = arg1;
+    size_t *empty_sec_num = arg1;
+    uint32_t *empty_sec_addr = arg2;
 
     if (sector->check_ok) {
-        *empty_sec = *empty_sec + 1;
+        *empty_sec_num = *empty_sec_num + 1;
+        *empty_sec_addr = sector->addr;
     }
 
     return false;
@@ -1108,6 +1114,7 @@ static bool do_gc(kv_sec_info_t sector, void *arg1, void *arg2)
     struct fdb_kv kv;
     struct gc_cb_args *gc = (struct gc_cb_args *)arg1;
     fdb_kvdb_t db = gc->db;
+    uint32_t last_gc_sec_addr = 0;
 
     if (sector->check_ok && (sector->status.dirty == FDB_SECTOR_DIRTY_TRUE || sector->status.dirty == FDB_SECTOR_DIRTY_GC)) {
         uint8_t status_table[FDB_DIRTY_STATUS_TABLE_SIZE];
@@ -1122,15 +1129,22 @@ static bool do_gc(kv_sec_info_t sector, void *arg1, void *arg2)
                 if (move_kv(db, &kv) != FDB_NO_ERR) {
                     FDB_INFO("Error: Moved the KV (%.*s) for GC failed.\n", kv.name_len, kv.name);
                 }
+            } else {
+                FDB_DEBUG("KV (%.*s) is garbage NOT need move, collect it.\n", kv.name_len, kv.name);
             }
         } while ((kv.addr.start = get_next_kv_addr(db, sector, &kv)) != FAILED_ADDR);
         format_sector(db, sector->addr, SECTOR_NOT_COMBINED);
-        gc->cur_free_size += db_sec_size(db) - SECTOR_HDR_DATA_SIZE;
-        FDB_DEBUG("Collect a sector @0x%08" PRIX32 "\n", sector->addr);
+        last_gc_sec_addr = gc->last_gc_sec_addr;
+        gc->last_gc_sec_addr = sector->addr;
         /* update oldest_addr for next GC sector format */
         db_oldest_addr(db) = get_next_sector_addr(db, sector, 0);
-        if (gc->cur_free_size >= gc->setting_free_size)
-            return true;
+        FDB_DEBUG("Collect a sector @0x%08" PRIX32 "\n", sector->addr);
+        /* the collect new space is in last GC sector */
+        struct kvdb_sec_info last_gc_sector;
+        if (read_sector_info(db, last_gc_sec_addr, &last_gc_sector, true) == FDB_NO_ERR) {
+            if (last_gc_sector.remain > gc->setting_free_size)
+                return true;
+        }
     }
 
     return false;
@@ -1139,15 +1153,17 @@ static bool do_gc(kv_sec_info_t sector, void *arg1, void *arg2)
 static void gc_collect_by_free_size(fdb_kvdb_t db, size_t free_size)
 {
     struct kvdb_sec_info sector;
-    size_t empty_sec = 0;
-    struct gc_cb_args arg = { db, 0, free_size, 0 };
+    size_t empty_sec_num = 0;
+    /* an empty sector address */
+    uint32_t empty_sec_addr = 0;
 
     /* GC check the empty sector number */
-    sector_iterator(db, &sector, FDB_SECTOR_STORE_EMPTY, &empty_sec, NULL, gc_check_cb, false);
+    sector_iterator(db, &sector, FDB_SECTOR_STORE_EMPTY, &empty_sec_num, &empty_sec_addr, gc_check_cb, false);
 
     /* do GC collect */
-    FDB_DEBUG("The remain empty sector is %" PRIu32 ", GC threshold is %" PRIdLEAST16 ".\n", (uint32_t)empty_sec, FDB_GC_EMPTY_SEC_THRESHOLD);
-    if (empty_sec <= FDB_GC_EMPTY_SEC_THRESHOLD) {
+    FDB_DEBUG("The remain empty sector is %" PRIu32 ", GC threshold is %" PRIdLEAST16 ".\n", (uint32_t)empty_sec_num, FDB_GC_EMPTY_SEC_THRESHOLD);
+    if (empty_sec_num <= FDB_GC_EMPTY_SEC_THRESHOLD) {
+        struct gc_cb_args arg = { db, free_size, empty_sec_addr };
         sector_iterator(db, &sector, FDB_SECTOR_STORE_UNUSED, &arg, NULL, do_gc, false);
     }
 
@@ -1164,32 +1180,6 @@ static void gc_collect(fdb_kvdb_t db)
     gc_collect_by_free_size(db, db_max_size(db));
 }
 
-static fdb_err_t align_write(fdb_kvdb_t db, uint32_t addr, const uint32_t *buf, size_t size)
-{
-    fdb_err_t result = FDB_NO_ERR;
-    size_t align_remain;
-
-#if (FDB_WRITE_GRAN / 8 > 0)
-    uint8_t align_data[FDB_WRITE_GRAN / 8];
-    size_t align_data_size = sizeof(align_data);
-#else
-    /* For compatibility with C89 */
-    uint8_t align_data_u8, *align_data = &align_data_u8;
-    size_t align_data_size = 1;
-#endif
-
-    memset(align_data, FDB_BYTE_ERASED, align_data_size);
-    result = _fdb_flash_write((fdb_db_t) db, addr, buf, FDB_WG_ALIGN_DOWN(size), false);
-
-    align_remain = size - FDB_WG_ALIGN_DOWN(size);
-    if (result == FDB_NO_ERR && align_remain) {
-        memcpy(align_data, (uint8_t *) buf + FDB_WG_ALIGN_DOWN(size), align_remain);
-        result = _fdb_flash_write((fdb_db_t) db, addr + FDB_WG_ALIGN_DOWN(size), (uint32_t *) align_data,
-                align_data_size, false);
-    }
-
-    return result;
-}
 
 static fdb_err_t create_kv_blob(fdb_kvdb_t db, kv_sec_info_t sector, const char *key, const void *value, size_t len)
 {
@@ -1242,7 +1232,7 @@ static fdb_err_t create_kv_blob(fdb_kvdb_t db, kv_sec_info_t sector, const char 
         }
         /* write key name */
         if (result == FDB_NO_ERR) {
-            result = align_write(db, kv_addr + KV_HDR_DATA_SIZE, (uint32_t *) key, kv_hdr.name_len);
+            result = _fdb_flash_write_align((fdb_db_t)db, kv_addr + KV_HDR_DATA_SIZE, (uint32_t *) key, kv_hdr.name_len);
 
 #ifdef FDB_KV_USING_CACHE
             if (!is_full) {
@@ -1254,7 +1244,7 @@ static fdb_err_t create_kv_blob(fdb_kvdb_t db, kv_sec_info_t sector, const char 
         }
         /* write value */
         if (result == FDB_NO_ERR) {
-            result = align_write(db, kv_addr + KV_HDR_DATA_SIZE + FDB_WG_ALIGN(kv_hdr.name_len), value,
+            result = _fdb_flash_write_align((fdb_db_t)db, kv_addr + KV_HDR_DATA_SIZE + FDB_WG_ALIGN(kv_hdr.name_len), value,
                     kv_hdr.value_len);
         }
         /* change the KV status to KV_WRITE */
@@ -1380,7 +1370,11 @@ fdb_err_t fdb_kv_set(fdb_kvdb_t db, const char *key, const char *value)
 {
     struct fdb_blob blob;
 
-    return fdb_kv_set_blob(db, key, fdb_blob_make(&blob, value, strlen(value)));
+    if (value) {
+        return fdb_kv_set_blob(db, key, fdb_blob_make(&blob, value, strlen(value)));
+    } else {
+        return fdb_kv_del(db, key);
+    }
 }
 
 /**
@@ -1576,7 +1570,7 @@ static bool check_sec_hdr_cb(kv_sec_info_t sector, void *arg1, void *arg2)
         if (db->parent.not_formatable) {
             return true;
         } else {
-            FDB_INFO("Sector header info is incorrect. Auto format this sector (0x%08" PRIX32 ").\n", sector->addr);
+            FDB_DEBUG("Sector header info is incorrect. Auto format this sector (0x%08" PRIX32 ").\n", sector->addr);
             format_sector(db, sector->addr, SECTOR_NOT_COMBINED);
         }
     }
@@ -1799,9 +1793,9 @@ fdb_err_t fdb_kvdb_init(fdb_kvdb_t db, const char *name, const char *path, struc
 
     FDB_DEBUG("KVDB size is %" PRIu32 " bytes.\n", db_max_size(db));
     db_unlock(db);
-    
+
     result = _fdb_kv_load(db);
-    
+
     db_lock(db);
 #ifdef FDB_KV_AUTO_UPDATE
     if (result == FDB_NO_ERR) {
