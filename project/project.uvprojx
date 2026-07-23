@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>HC32F460, USE_DDL_DRIVER, RT_USING_LIBC, RT_USING_ARMLIBC, __RTTHREAD__, __DEBUG, __CLK_TCK=RT_TICK_PER_SECOND, __STDC_LIMIT_MACROS</Define>
+              <Define>RT_USING_ARMLIBC, RT_USING_LIBC, HC32F460, __DEBUG, USE_DDL_DRIVER, __STDC_LIMIT_MACROS, __RTTHREAD__, __CLK_TCK=RT_TICK_PER_SECOND</Define>
               <Undefine></Undefine>
-              <IncludePath>rt-thread\components\finsh;packages\pahomqtt-latest\MQTTPacket\src;lwrb\src\include\lwrb;rt-thread\libcpu\arm\common;board\config\usb_config;rt-thread\components\net\sal\include;libraries\hc32f460_ddl\drivers\hc32_ll_driver\inc;rt-thread\components\net\at\at_socket;rt-thread\components\utilities\ulog;rt-thread\libcpu\arm\cortex-m4;board\config;packages\FlashDB-v2.1.0\inc;libraries\hc32f460_ddl\drivers\cmsis\Include;board\ports;rt-thread\components\libc\posix\io\epoll;rt-thread\components\net\sal\include\socket\sys_socket;rt-thread\components\libc\compilers\common\extension\fcntl\octal;rt-thread\components\libc\compilers\common\include;rt-thread\components\dfs\dfs_v1\filesystems\devfs;rt-thread\components\drivers\include;rt-thread\components\drivers\include;board\ports\fal;packages\at_device\class\ml307;applications;rt-thread\components\libc\posix\io\poll;packages\syswatch\inc;.;rt-thread\components\fal\inc;rt-thread\components\libc\posix\ipc;rt-thread\components\drivers\include;libraries\hc32_drivers;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\spi\sfud\inc;rt-thread\components\net\sal\impl;lwrb\src\include;rt-thread\components\drivers\include;rt-thread\components\libc\posix\io\eventfd;packages\at_device\inc;rt-thread\components\net\sal\include\socket;rt-thread\include;rt-thread\components\net\at\include;rt-thread\components\drivers\spi;rt-thread\components\net\netdev\include;board;libraries\hc32f460_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Include;packages\pahomqtt-latest\MQTTClient-RT;rt-thread\components\utilities\resource;rt-thread\components\drivers\include;rt-thread\components\net\sal\include\dfs_net;rt-thread\components\dfs\dfs_v1\include;rt-thread\components\libc\compilers\common\extension;libraries\hc32_drivers\drv_flash</IncludePath>
+              <IncludePath>rt-thread\libcpu\arm\cortex-m4;board\config;libraries\hc32f460_ddl\drivers\hc32_ll_driver\inc;rt-thread\components\drivers\include;libraries\hc32f460_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Include;rt-thread\components\drivers\include;rt-thread\components\net\sal\include\dfs_net;rt-thread\components\net\netdev\include;packages\at_device\inc;lwrb\src\include;rt-thread\components\drivers\include;rt-thread\components\net\sal\impl;packages\at_device\class\ml307;rt-thread\components\drivers\include;packages\FlashDB-v2.1.0\inc;rt-thread\components\net\sal\include\socket\sys_socket;rt-thread\include;packages\pahomqtt\MQTTPacket\src;rt-thread\components\libc\compilers\common\extension\fcntl\octal;rt-thread\libcpu\arm\common;board\config\usb_config;applications;rt-thread\components\drivers\include;rt-thread\components\libc\compilers\common\extension;packages\syswatch\inc;rt-thread\components\utilities\ulog;rt-thread\components\finsh;rt-thread\components\fal\inc;board;rt-thread\components\net\sal\include;libraries\hc32_drivers\drv_flash;.;board\ports\fal;rt-thread\components\net\at\include;rt-thread\components\net\sal\include\socket;rt-thread\components\dfs\dfs_v1\filesystems\devfs;rt-thread\components\libc\posix\io\poll;rt-thread\components\dfs\dfs_v1\include;lwrb\src\include\lwrb;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\spi;rt-thread\components\libc\compilers\common\include;board\ports;rt-thread\components\drivers\spi\sfud\inc;libraries\hc32f460_ddl\drivers\cmsis\Include;rt-thread\components\libc\posix\io\epoll;rt-thread\components\utilities\resource;rt-thread\components\net\at\at_socket;rt-thread\components\libc\posix\io\eventfd;packages\pahomqtt\MQTTClient-RT;libraries\hc32_drivers;rt-thread\components\libc\posix\ipc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -383,14 +383,9 @@
           <GroupName>Applications</GroupName>
           <Files>
             <File>
-              <FileName>xtal32_fcm.c</FileName>
+              <FileName>uart_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>applications\xtal32_fcm.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\main.c</FilePath>
+              <FilePath>applications\uart_test.c</FilePath>
             </File>
             <File>
               <FileName>params.c</FileName>
@@ -398,14 +393,19 @@
               <FilePath>applications\params.c</FilePath>
             </File>
             <File>
-              <FileName>uart_test.c</FileName>
+              <FileName>xtal32_fcm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>applications\uart_test.c</FilePath>
+              <FilePath>applications\xtal32_fcm.c</FilePath>
             </File>
             <File>
               <FileName>flash_param.c</FileName>
               <FileType>1</FileType>
               <FilePath>applications\flash_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\main.c</FilePath>
             </File>
             <File>
               <FileName>rs485.c</FileName>
@@ -418,24 +418,24 @@
           <GroupName>AT</GroupName>
           <Files>
             <File>
-              <FileName>at_cli.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\net\at\src\at_cli.c</FilePath>
-            </File>
-            <File>
               <FileName>at_client.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\net\at\src\at_client.c</FilePath>
             </File>
             <File>
-              <FileName>at_socket.c</FileName>
+              <FileName>at_cli.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\components\net\at\at_socket\at_socket.c</FilePath>
+              <FilePath>rt-thread\components\net\at\src\at_cli.c</FilePath>
             </File>
             <File>
               <FileName>at_utils.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\net\at\src\at_utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>at_socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\net\at\at_socket\at_socket.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -448,9 +448,9 @@
               <FilePath>packages\at_device\class\ml307\at_device_ml307.c</FilePath>
             </File>
             <File>
-              <FileName>at_socket_ml307.c</FileName>
+              <FileName>at_device.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\at_device\class\ml307\at_socket_ml307.c</FilePath>
+              <FilePath>packages\at_device\src\at_device.c</FilePath>
             </File>
             <File>
               <FileName>at_sample_ml307.c</FileName>
@@ -458,9 +458,9 @@
               <FilePath>packages\at_device\samples\at_sample_ml307.c</FilePath>
             </File>
             <File>
-              <FileName>at_device.c</FileName>
+              <FileName>at_socket_ml307.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\at_device\src\at_device.c</FilePath>
+              <FilePath>packages\at_device\class\ml307\at_socket_ml307.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1586,9 +1586,9 @@
           <GroupName>Fal</GroupName>
           <Files>
             <File>
-              <FileName>fal_rtt.c</FileName>
+              <FileName>fal_partition.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal_rtt.c</FilePath>
+              <FilePath>rt-thread\components\fal\src\fal_partition.c</FilePath>
             </File>
             <File>
               <FileName>fal_flash_sfud_port.c</FileName>
@@ -1596,19 +1596,19 @@
               <FilePath>rt-thread\components\fal\samples\porting\fal_flash_sfud_port.c</FilePath>
             </File>
             <File>
-              <FileName>fal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal.c</FilePath>
-            </File>
-            <File>
-              <FileName>fal_partition.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal_partition.c</FilePath>
-            </File>
-            <File>
               <FileName>fal_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\fal\src\fal_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>fal_rtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\fal\src\fal_rtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>fal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\fal\src\fal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1707,9 +1707,14 @@
           <GroupName>Finsh</GroupName>
           <Files>
             <File>
-              <FileName>msh.c</FileName>
+              <FileName>cmd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\components\finsh\msh.c</FilePath>
+              <FilePath>rt-thread\components\finsh\cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>msh_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\msh_file.c</FilePath>
             </File>
             <File>
               <FileName>msh_parse.c</FileName>
@@ -1717,19 +1722,14 @@
               <FilePath>rt-thread\components\finsh\msh_parse.c</FilePath>
             </File>
             <File>
-              <FileName>cmd.c</FileName>
+              <FileName>msh.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\components\finsh\cmd.c</FilePath>
+              <FilePath>rt-thread\components\finsh\msh.c</FilePath>
             </File>
             <File>
               <FileName>shell.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\finsh\shell.c</FilePath>
-            </File>
-            <File>
-              <FileName>msh_file.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\finsh\msh_file.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1737,14 +1737,14 @@
           <GroupName>FlashDB</GroupName>
           <Files>
             <File>
-              <FileName>fdb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\FlashDB-v2.1.0\src\fdb.c</FilePath>
-            </File>
-            <File>
               <FileName>fdb_cmd.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\FlashDB-v2.1.0\src\fdb_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fdb_kvdb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\FlashDB-v2.1.0\src\fdb_kvdb.c</FilePath>
             </File>
             <File>
               <FileName>fdb_tsdb.c</FileName>
@@ -1752,19 +1752,19 @@
               <FilePath>packages\FlashDB-v2.1.0\src\fdb_tsdb.c</FilePath>
             </File>
             <File>
-              <FileName>fdb_file.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\FlashDB-v2.1.0\src\fdb_file.c</FilePath>
-            </File>
-            <File>
               <FileName>fdb_utils.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\FlashDB-v2.1.0\src\fdb_utils.c</FilePath>
             </File>
             <File>
-              <FileName>fdb_kvdb.c</FileName>
+              <FileName>fdb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\FlashDB-v2.1.0\src\fdb_kvdb.c</FilePath>
+              <FilePath>packages\FlashDB-v2.1.0\src\fdb.c</FilePath>
+            </File>
+            <File>
+              <FileName>fdb_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\FlashDB-v2.1.0\src\fdb_file.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2647,14 +2647,79 @@
           <GroupName>Libraries</GroupName>
           <Files>
             <File>
+              <FileName>hc32_ll_interrupts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_interrupts.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_efm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_efm.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_aos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_aos.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_tmr0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_tmr0.c</FilePath>
+            </File>
+            <File>
               <FileName>hc32_ll_sram.c</FileName>
               <FileType>1</FileType>
               <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_sram.c</FilePath>
             </File>
             <File>
+              <FileName>hc32_ll_swdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_swdt.c</FilePath>
+            </File>
+            <File>
               <FileName>system_hc32f460.c</FileName>
               <FileType>1</FileType>
               <FilePath>libraries\hc32f460_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Source\system_hc32f460.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_rmu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_rmu.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_utility.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_icg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_icg.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_wdt.c</FilePath>
             </File>
             <File>
               <FileName>hc32f460_ll_interrupts_share.c</FileName>
@@ -2667,49 +2732,9 @@
               <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_usart.c</FilePath>
             </File>
             <File>
-              <FileName>hc32_ll_spi.c</FileName>
+              <FileName>hc32_ll_clk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_tmr0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_tmr0.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_wdt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_wdt.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_rmu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_rmu.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_aos.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_aos.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_icg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_icg.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_pwc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_pwc.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_interrupts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_interrupts.c</FilePath>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_clk.c</FilePath>
             </File>
             <File>
               <FileName>hc32_ll_fcg.c</FileName>
@@ -2717,34 +2742,9 @@
               <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_fcg.c</FilePath>
             </File>
             <File>
-              <FileName>hc32_ll_swdt.c</FileName>
+              <FileName>hc32_ll_pwc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_swdt.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_clk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_clk.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_efm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_efm.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_utility.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_utility.c</FilePath>
-            </File>
-            <File>
-              <FileName>hc32_ll_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_dma.c</FilePath>
+              <FilePath>libraries\hc32f460_ddl\drivers\hc32_ll_driver\src\hc32_ll_pwc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2762,64 +2762,64 @@
           <GroupName>paho-mqtt</GroupName>
           <Files>
             <File>
-              <FileName>MQTTPacket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTPacket.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTUnsubscribeClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTUnsubscribeClient.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTDeserializePublish.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTDeserializePublish.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTConnectServer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTConnectServer.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTSubscribeClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTSubscribeClient.c</FilePath>
-            </File>
-            <File>
               <FileName>paho_mqtt_pipe.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTClient-RT\paho_mqtt_pipe.c</FilePath>
+              <FilePath>packages\pahomqtt\MQTTClient-RT\paho_mqtt_pipe.c</FilePath>
             </File>
             <File>
-              <FileName>MQTTSerializePublish.c</FileName>
+              <FileName>MQTTPacket.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTSerializePublish.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTUnsubscribeServer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTUnsubscribeServer.c</FilePath>
-            </File>
-            <File>
-              <FileName>mqtt_sample.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\samples\mqtt_sample.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTFormat.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTFormat.c</FilePath>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTPacket.c</FilePath>
             </File>
             <File>
               <FileName>MQTTSubscribeServer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTSubscribeServer.c</FilePath>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTSubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTSubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTConnectServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTConnectServer.c</FilePath>
             </File>
             <File>
               <FileName>MQTTConnectClient.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\pahomqtt-latest\MQTTPacket\src\MQTTConnectClient.c</FilePath>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTConnectClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTUnsubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTDeserializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTDeserializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>mqtt_sample.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\samples\mqtt_sample.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTFormat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTFormat.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTUnsubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSerializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\pahomqtt\MQTTPacket\src\MQTTSerializePublish.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2882,14 +2882,14 @@
           <GroupName>syswatch</GroupName>
           <Files>
             <File>
-              <FileName>syswatch_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\syswatch\src\syswatch_test.c</FilePath>
-            </File>
-            <File>
               <FileName>syswatch.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\syswatch\src\syswatch.c</FilePath>
+            </File>
+            <File>
+              <FileName>syswatch_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\syswatch\src\syswatch_test.c</FilePath>
             </File>
           </Files>
         </Group>

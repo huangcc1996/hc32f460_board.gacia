@@ -374,11 +374,38 @@ static int ml307_domain_resolve(const char *name, char ip[16])
         }
 
         /* parse the third line of response data, get the IP address */
-        if (at_resp_parse_line_args_by_kw(resp, "+MDNSGIP: ", "%*[^,],\"%[^\"]", recv_ip) < 0)
+//        if (at_resp_parse_line_args_by_kw(resp, "+MDNSGIP: ", "%*[^,],\"%[^\"]", recv_ip) < 0)
+//        {
+//            rt_thread_mdelay(100);
+//            /* resolve failed, maybe receive an URC CRLF */
+//            continue;
+//        }
         {
-            rt_thread_mdelay(100);
-            /* resolve failed, maybe receive an URC CRLF */
-            continue;
+            char ip_buf[4][64] = {{0}};
+            int ip_count = at_resp_parse_line_args_by_kw(resp, "+MDNSGIP:",
+                    "%*[^,],\"%63[^\"]\",\"%63[^\"]\",\"%63[^\"]\",\"%63[^\"]\"",
+                    ip_buf[0], ip_buf[1], ip_buf[2], ip_buf[3]);
+            int j, found = 0;
+
+            for (j = 0; j < ip_count && j < 4; j++)
+            {
+                if (rt_strstr(ip_buf[j], ".") != RT_NULL &&
+                    rt_strstr(ip_buf[j], ":") == RT_NULL &&
+                    rt_strlen(ip_buf[j]) >= 7)
+                {
+                    rt_strncpy(recv_ip, ip_buf[j], 15);
+                    recv_ip[15] = '\0';
+                    found = 1;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                rt_thread_mdelay(100);
+                /* resolve failed, maybe receive an URC CRLF or all IPs are IPv6 */
+                continue;
+            }
         }
 
         if (rt_strlen(recv_ip) < 8)

@@ -253,7 +253,7 @@ static int ml307_netdev_set_info(struct netdev *netdev)
     /* set network interface device IP address */
     {
         #define IP_ADDR_SIZE_MAX    16
-        char ipaddr[IP_ADDR_SIZE_MAX] = {0};
+        char ipaddr[4*IP_ADDR_SIZE_MAX] = {0};
 
         at_resp_set_info(resp, ML307_IPADDR_RESP_SIZE*2, 2, ML307_INFO_RESP_TIMO);
 
