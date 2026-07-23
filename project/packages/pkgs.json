@@ -5,9 +5,19 @@
   "ver": "latest"
  },
  {
+  "name": "WEBCLIENT",
+  "path": "/packages/iot/webclient",
+  "ver": "v2.2.0"
+ },
+ {
   "name": "AT_DEVICE",
   "path": "/packages/iot/at_device",
   "ver": "latest"
+ },
+ {
+  "name": "OTA_DOWNLOADER",
+  "path": "/packages/iot/ota_downloader",
+  "ver": "v1.0.0"
  },
  {
   "name": "FLASHDB",

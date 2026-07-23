@@ -210,6 +210,10 @@
 #define PKG_PAHOMQTT_SUBSCRIBE_HANDLERS 1
 #define MQTT_DEBUG
 #define PKG_USING_PAHOMQTT_LATEST
+#define PKG_USING_WEBCLIENT
+#define WEBCLIENT_NOT_USE_TLS
+#define PKG_USING_WEBCLIENT_V220
+#define PKG_WEBCLIENT_VER_NUM 0x20200
 
 /* Wi-Fi */
 
@@ -238,7 +242,7 @@
 #define AT_DEVICE_ESP8266_INIT_ASYN
 #define AT_DEVICE_ESP8266_SOCKET
 #define AT_DEVICE_ESP8266_SAMPLE
-#define ESP8266_SAMPLE_WIFI_SSID "\xE6\xA8\xA1\xE5\x85\xB7\xE4\xBC\x9A\xE8\xAE\xAE\xE5\xAE\xA4"
+#define ESP8266_SAMPLE_WIFI_SSID "\\xE6\\xA8\\xA1\\xE5\\x85\\xB7\\xE4\\xBC\\x9A\\xE8\\xAE\\xAE\\xE5\\xAE\\xA4"
 #define ESP8266_SAMPLE_WIFI_PASSWORD "Gacia@2025."
 #define ESP8266_SAMPLE_CLIENT_NAME "uart4"
 #define ESP8266_SAMPLE_RECV_BUFF_LEN 2048
@@ -256,6 +260,11 @@
 /* IoT Cloud */
 
 /* end of IoT Cloud */
+#define PKG_USING_OTA_DOWNLOADER
+#define OTA_DOWNLOADER_DEBUG
+#define PKG_USING_HTTP_OTA
+#define PKG_HTTP_OTA_URL "http://xxx/xxx/rtthread.rbl"
+#define PKG_USING_OTA_DOWNLOADER_V100
 /* end of IoT - internet of things */
 
 /* security packages */

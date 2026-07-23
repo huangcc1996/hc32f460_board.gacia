@@ -14,13 +14,13 @@
 #include <at_log.h>
 
 #define ESP8266_SAMPLE_DEIVCE_NAME     "esp0"
-
+#define _SAMPLE_WIFI_SSID "\xE6\xA8\xA1\xE5\x85\xB7\xE4\xBC\x9A\xE8\xAE\xAE\xE5\xAE\xA4"
 static struct at_device_esp8266 esp0 =
 {
     ESP8266_SAMPLE_DEIVCE_NAME,
     ESP8266_SAMPLE_CLIENT_NAME,
 
-    ESP8266_SAMPLE_WIFI_SSID,
+    _SAMPLE_WIFI_SSID,
     ESP8266_SAMPLE_WIFI_PASSWORD,
     ESP8266_SAMPLE_RECV_BUFF_LEN,
 };
