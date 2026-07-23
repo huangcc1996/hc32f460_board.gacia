@@ -292,6 +292,14 @@ static int ml307_netdev_set_info(struct netdev *netdev)
             result = -RT_ERROR;
             goto __exit;
         }
+        
+        /* send AT+MDNSCFG="ip","114.114.114.114","8.8.8.8" commond to set resolve IPV4 dns servers */
+        if (at_obj_exec_cmd(device->client, resp, "AT+MDNSCFG=\"ip\",\"223.5.5.5\",\"119.29.29.29\"") < 0)
+        {
+            result = -RT_ERROR;
+            goto __exit;
+        }
+        
         /* send "AT+MDNSCFG=\"ip\"" commond to get DNS servers address */
         if (at_obj_exec_cmd(device->client, resp, "AT+MDNSCFG=\"ip\"") < 0)
         {
@@ -829,7 +837,8 @@ static void ml307_init_thread_entry(void *parameter)
         rt_thread_mdelay(500);
         ml307_power_on(device);
         rt_thread_mdelay(1000);
-
+        /* reboot */
+        AT_SEND_CMD(client, resp, 0, ML307_AT_DEFAULT_TIMEOUT, "AT+MREBOOT=0");
         /* wait ml307 startup finish */
         if (at_client_obj_wait_connect(client, ML307_WAIT_CONNECT_TIME))
         {
