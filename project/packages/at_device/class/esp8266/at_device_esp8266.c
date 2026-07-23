@@ -102,17 +102,39 @@ static void esp8266_get_netdev_info(struct rt_work *work, void *work_data)
     }
 
     /* send dns server query commond "AT+CIPDNS?" and wait response */
-    if (at_obj_exec_cmd(device->client, resp, "AT+CIPDNS?") < 0)
+    if (at_obj_exec_cmd(device->client, resp, "AT+CIPDNS_CUR?") < 0)
     {
-        LOG_W("please check and update %s device firmware to support the \"AT+CIPDNS?\" cmd.", device->name);
+        LOG_W("please check and update %s device firmware to support the \"AT+CIPDNS_CUR?\" cmd.", device->name);
         goto __exit;
     }
 
     /* +CIPDNS:0,"208.67.222.222","8.8.8.8" */
-    if (at_resp_parse_line_args_by_kw(resp, "+CIPDNS:", "%*[^\"]\"%[^\"]\",\"%[^\"]\"", dns_server1, dns_server2) < 0)
+//    if (at_resp_parse_line_args_by_kw(resp, "+CIPDNS_CUR:", "%*[^\"]\"%[^\"]\",\"%[^\"]\"", dns_server1, dns_server2) < 0)
+//    {
+//        LOG_E("%s device prase \"AT+CIPDNS_CUR?\" cmd error.", device->name);
+//        goto __exit;
+//    }
+    /* new firmware: +CIPDNS_CUR:192.168.1.100
+                     +CIPDNS_CUR:208.67.222.222 */
     {
-        LOG_E("%s device prase \"AT+CIPDNS?\" cmd error.", device->name);
-        goto __exit;
+        int dns_idx = 0;
+        for (int i = 1; i <= resp->line_counts && dns_idx < 2; i++)
+        {
+            const char *line = at_resp_get_line(resp, i);
+            if (line && strstr(line, "+CIPDNS_CUR:"))
+            {
+                if (dns_idx == 0)
+                    at_resp_parse_line_args(resp, i, "+CIPDNS_CUR:%s", dns_server1);
+                else
+                    at_resp_parse_line_args(resp, i, "+CIPDNS_CUR:%s", dns_server2);
+                dns_idx++;
+            }
+        }
+        if (dns_idx == 0)
+        {
+            LOG_E("%s device prase \"AT+CIPDNS_CUR?\" cmd error.", device->name);
+            goto __exit;
+        }
     }
 
     /* set primary DNS server address */
@@ -418,7 +440,12 @@ static int esp8266_netdev_ping(struct netdev *netdev, const char *host,
     }
 
     /* parse the third line of response data, get the IP address */
-    if (at_resp_parse_line_args_by_kw(resp, "+CIPDOMAIN:", (esp8266_get_at_version() <= ESP8266_DEFAULT_AT_VERSION_NUM) ? "+CIPDOMAIN:%s" : "+CIPDOMAIN:\"%[^\"]\"", ip_addr) < 0)
+//    if (at_resp_parse_line_args_by_kw(resp, "+CIPDOMAIN:", (esp8266_get_at_version() <= ESP8266_DEFAULT_AT_VERSION_NUM) ? "+CIPDOMAIN:%s" : "+CIPDOMAIN:\"%[^\"]\"", ip_addr) < 0)
+//    {
+//        result = -RT_ERROR;
+//        goto __exit;
+//    }
+    if (at_resp_parse_line_args_by_kw(resp, "+CIPDOMAIN:", "+CIPDOMAIN:%s", ip_addr) < 0)
     {
         result = -RT_ERROR;
         goto __exit;
@@ -430,8 +457,13 @@ static int esp8266_netdev_ping(struct netdev *netdev, const char *host,
         result = -RT_ERROR;
         goto __exit;
     }
-
-    if (at_resp_parse_line_args_by_kw(resp, "+", (esp8266_get_at_version() <= ESP8266_DEFAULT_AT_VERSION_NUM) ? "+%d" : "+PING:%d", &req_time) < 0)
+    
+//    if (at_resp_parse_line_args_by_kw(resp, "+", (esp8266_get_at_version() <= ESP8266_DEFAULT_AT_VERSION_NUM) ? "+%d" : "+PING:%d", &req_time) < 0)
+//    {
+//        result = -RT_ERROR;
+//        goto __exit;
+//    }
+        if (at_resp_parse_line_args_by_kw(resp, "+", "+%d", &req_time) < 0)
     {
         result = -RT_ERROR;
         goto __exit;
