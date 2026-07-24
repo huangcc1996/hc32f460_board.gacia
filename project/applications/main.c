@@ -19,6 +19,10 @@
 /* defined the LED_GREEN pin: PD4 */
 #define LED_GREEN_PIN GET_PIN(D, 10)
 
+//这个变量用于占用0x1FFFFFFC地址，SRAMH 和 SRAM1 的边界不支持非对齐访问，使用上必须避免对
+//0x1FFF_FFFD/0x1FFF_FFFE/0x1FFF_FFFF 地址发起 32bit 访问，对 0x1FFF_FFFF 地址发起 16bit
+//访问。
+static uint32_t _empty __attribute__((at(0x1FFFFFFC)));
 extern int fdb_kvdc_params(void);
 int main(void)
 {
