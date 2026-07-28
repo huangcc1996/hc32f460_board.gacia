@@ -15,6 +15,11 @@
   "ver": "latest"
  },
  {
+  "name": "WIZNET",
+  "path": "/packages/iot/wiznet",
+  "ver": "latest"
+ },
+ {
   "name": "OTA_DOWNLOADER",
   "path": "/packages/iot/ota_downloader",
   "ver": "v1.0.0"

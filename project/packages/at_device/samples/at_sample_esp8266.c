@@ -35,4 +35,4 @@ static int esp8266_device_register(void)
                               AT_DEVICE_CLASS_ESP8266,
                               (void *) esp8266);
 }
-INIT_APP_EXPORT(esp8266_device_register);
+//INIT_APP_EXPORT(esp8266_device_register);

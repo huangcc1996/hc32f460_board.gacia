@@ -95,6 +95,23 @@
 #endif
 
 /************************* SPI port ***********************/
+#if defined(BSP_USING_SPI2)//W5500
+    #define SPI2_NSS_PORT                   (GPIO_PORT_C)
+    #define SPI2_NSS_PIN                    (GPIO_PIN_00)
+    #define SPI2_NSS_GPIO_FUNC              (GPIO_FUNC_0)
+    
+    #define SPI2_SCK_PORT                   (GPIO_PORT_C)
+    #define SPI2_SCK_PIN                    (GPIO_PIN_01)
+    #define SPI2_SCK_GPIO_FUNC              (GPIO_FUNC_47)
+
+    #define SPI2_MOSI_PORT                  (GPIO_PORT_C)
+    #define SPI2_MOSI_PIN                   (GPIO_PIN_03)
+    #define SPI2_MOSI_GPIO_FUNC             (GPIO_FUNC_44)
+
+    #define SPI2_MISO_PORT                  (GPIO_PORT_C)
+    #define SPI2_MISO_PIN                   (GPIO_PIN_02)
+    #define SPI2_MISO_GPIO_FUNC             (GPIO_FUNC_45)
+#endif
 #if defined(BSP_USING_SPI3)
     #define SPI3_CS_PORT                (GPIO_PORT_E)
     #define SPI3_CS_PIN                 (GPIO_PIN_03)

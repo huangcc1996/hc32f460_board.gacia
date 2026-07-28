@@ -15,6 +15,9 @@
 #define RT_USING_IDLE_HOOK
 #define RT_IDLE_HOOK_LIST_SIZE 4
 #define IDLE_THREAD_STACK_SIZE 256
+#define RT_USING_TIMER_SOFT
+#define RT_TIMER_THREAD_PRIO 4
+#define RT_TIMER_THREAD_STACK_SIZE 512
 
 /* kservice optimization */
 
@@ -58,6 +61,7 @@
 #define RT_USING_USER_MAIN
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 10
+#define RT_USING_LEGACY
 #define RT_USING_MSH
 #define RT_USING_FINSH
 #define FINSH_USING_MSH
@@ -256,6 +260,25 @@
 #define ML307_SAMPLE_RECV_BUFF_LEN 2048
 #define PKG_USING_AT_DEVICE_LATEST_VERSION
 #define PKG_AT_DEVICE_VER_NUM 0x99999
+#define PKG_USING_WIZNET
+#define WIZ_USING_W5500
+
+/* WIZnet device configure */
+
+#define WIZ_SPI_DEVICE "spiwiz"
+#define WIZ_RST_PIN 73
+#define WIZ_IRQ_PIN 74
+/* end of WIZnet device configure */
+
+/* WIZnet network configure */
+
+#define WIZ_IPADDR "192.168.137.110"
+#define WIZ_GWADDR "192.168.137.1"
+#define WIZ_MSKADDR "255.255.255.0"
+/* end of WIZnet network configure */
+#define WIZ_USING_PING
+#define WIZ_DEBUG
+#define PKG_USING_WIZNET_LATEST_VERSION
 
 /* IoT Cloud */
 
@@ -498,6 +521,7 @@
 #define BSP_USING_UART4
 #define BSP_USING_ON_CHIP_FLASH
 #define BSP_USING_SPI
+#define BSP_USING_SPI2
 #define BSP_USING_SPI3
 #define BSP_USING_WDT_TMR
 #define BSP_USING_WDT

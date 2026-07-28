@@ -150,6 +150,13 @@ rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
 
     switch ((rt_uint32_t)CM_SPIx)
     {
+#if defined(BSP_USING_SPI2)
+    case (rt_uint32_t)CM_SPI2:
+        GPIO_SetFunc(SPI2_SCK_PORT, SPI2_SCK_PIN, SPI2_SCK_GPIO_FUNC);   /* SCK  */
+        GPIO_SetFunc(SPI2_MOSI_PORT, SPI2_MOSI_PIN, SPI2_MOSI_GPIO_FUNC);   /* MOSI */
+        GPIO_SetFunc(SPI2_MISO_PORT, SPI2_MISO_PIN, SPI2_MISO_GPIO_FUNC);   /* MISO */
+        break;
+#endif
 #if defined(BSP_USING_SPI3)
     case (rt_uint32_t)CM_SPI3:
 //        GPIO_StructInit(&stcGpioInit);

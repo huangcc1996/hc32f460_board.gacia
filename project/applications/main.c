@@ -15,7 +15,7 @@
 #include "board_config.h"
 #include "fal.h"
 #include "spi_flash_sfud.h"
-
+#include "wiz.h"
 /* defined the LED_GREEN pin: PD4 */
 #define LED_GREEN_PIN GET_PIN(D, 10)
 
@@ -34,7 +34,9 @@ int main(void)
         fal_init();
         fdb_kvdc_params();
     }
-
+    
+    rt_hw_spi_device_attach("spi2", WIZ_SPI_DEVICE, SPI2_NSS_PORT, SPI2_NSS_PIN);
+    wiz_init();
     while (1)
     {
         rt_pin_write(LED_GREEN_PIN, PIN_HIGH);
