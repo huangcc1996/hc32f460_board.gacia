@@ -35,8 +35,8 @@ int main(void)
         fdb_kvdc_params();
     }
     
-    rt_hw_spi_device_attach("spi2", WIZ_SPI_DEVICE, SPI2_NSS_PORT, SPI2_NSS_PIN);
-    wiz_init();
+//    rt_hw_spi_device_attach("spi2", WIZ_SPI_DEVICE, SPI2_NSS_PORT, SPI2_NSS_PIN);
+//    wiz_init();
     while (1)
     {
         rt_pin_write(LED_GREEN_PIN, PIN_HIGH);
